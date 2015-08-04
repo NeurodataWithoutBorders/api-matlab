@@ -1,0 +1,22 @@
+Summary
+These experiments probe neural dynamics in the anterior motor cortex (ALM) and its relationship to voluntary movement.  The data represent extracellular recordings from ALM neurons of adult mice performing a tactile decision behavior.  
+
+Li, Chen, Guo, Gerfen, Svoboda. (2014) Article title. Journal Name xxx.
+
+
+Experimental method
+Mice measured the location of an object using their whiskers during a sample epoch (1.3 s) [2]. After the sample epoch they must hold their decision about object location in memory for a delay period (1.3 s) [1].  At the end of the delay period, an auditory cue (0.1) instructed the mice to report their decision with directional licking (“lick left”/”lick right”).  Mouth movements were monitored using a photodiode and an infra-red laser diode to measure reaction times.
+
+Extracellular spikes were recorded using NeuroNexus silicon probes (Part# A4x8-5mm-100-200-177) [1].  Silicon probes were introduced acutely before each recording session.  The 32 channel voltage signals were multiplexed, recorded on a PCI6133 board at 312.5 kHz (National instrument), and digitized at 14 bit.  The signals were demultiplexed into the 32 voltage traces at the sampling frequency of 19531.25Hz and stored for offline analyses.  3-8 recordings were made from each craniotomy.  Recording depth was inferred based on manipulator readings.  To minimize brain movement, a drop of silicone gel (3-4680, Dow Corning, Midland, MI) was applied over the craniotomy after the electrode was in the tissue.  The tissue was allowed to settle for several minutes before the recording started.
+
+To optogenetically tag ALM IT and PT neurons, we first infected ALM neurons with Cre-dependent AAV virus expressing ChR2 (AAV2/5.hSyn1.FLEX.hChR2.tdTomato) [3]. Virus was injected in ALM into 3 Rbp4-cre mice (targeting both layer5 IT and PT neurons), 4 Tlx_PL56-cre mice (layer 5 IT neuron), and 9 Sim1_KJ18-cre mice (PT neurons).  100 nL volumes were injected each at 500 and 800 μm depth.  We also used 2 Tlx_PL56-cre x Ai32 transgenic mice for antidromic tagging of IT neurons.  
+
+To photoexcite the PT neurons, an optical fiber was implanted into the reticular formation (5.5 mm posterior, 1mm lateral, 5mm deep), ipsilateral to the viral injection site to target both the axon terminals and passing axons.  1-4 months post virus injection and fiber implant, silicon probe recordings were made from the virus infaction site in ALM.  Photostimulation through the optical fiber was used to target PT neuron axons; photostimulation through a cranial window over the contra-lateral ALM was used to target IT neuron axons.  Pairs of laser pulses (1 ms duration, 47-82 mW peak power) separated by 10 ms were deployed every 500 ms to elicit antidromic responses from ChR+ neurons.  Occasionally, a slightly longer pulse duration (3 or 5ms) necessary to evoke antidromic spikes.  Antidromic responses were typically detected on only 1 or 2 recording channels in a recording session.
+
+----------
+References
+1. Guo ZV, Li N, Huber D, Ophir E, Gutnisky  DA, et al. (2014) Flow of cortical activity underlying a tactile decision in mice. Neuron 81: 179-194.
+2. O'Connor DH, Clack NG, Huber D, Komiyama T, Myers EW, et al. (2010) Vibrissa-based object localization in head-fixed mice. J Neurosci 30: 1947-1967.
+3. O'Connor DH, Hires SA, Guo ZV, Li N, Yu J, et al. (2013) Neural coding during active somatosensation revealed using illusory touch. Nature neuroscience 16: 958-965.
+4. Swadlow HA, Waxman SG, Rosene DL (1978) Latency variability and the identification of antidromically activated neurons in mammalian brain. Exp Brain Res 32: 439-443.
+

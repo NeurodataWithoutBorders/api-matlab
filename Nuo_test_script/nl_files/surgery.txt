@@ -1,0 +1,9 @@
+Mice were implanted with a clear-skull cap and a headpost [1].  A small craniotomy (approximately 1 mm in diameter) was made over left ALM (2.5mm anterior, 1.5 mm lateral of bregma) one day prior to the recording sessions.  
+
+See also 'fiber' and 'virus' for fiber implant and virus injection.
+
+
+----------
+References
+1. Guo ZV, Li N, Huber D, Ophir E, Gutnisky  DA, et al. (2014) Flow of cortical activity underlying a tactile decision in mice. Neuron 81: 179-194.
+

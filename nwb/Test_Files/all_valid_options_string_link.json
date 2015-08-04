@@ -1,0 +1,7 @@
+{
+"link_type": "string",
+"include_schema_id": "True",
+"schema_id_attr": "h5g8id", 
+"flag_custom_nodes": "False",
+"default_compress_size": 512   
+}

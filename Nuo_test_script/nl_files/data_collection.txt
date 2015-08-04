@@ -1,0 +1,10 @@
+The extracellular recording traces were band-pass filtered (300-6k Hz).  Events that exceeded an amplitude threshold (4 standard deviations of the background) were subjected to manual spike sorting to extract clear single units [1].  Spike sorting was performed on data from individual recording sessions.  For each unit, its spike width was computed as the trough to peak interval in the mean spike waveform.  We defined units with spike width <0.35 ms as fast-spiking GABAergic (FS) neurons and units with spike width >0.45 ms as putative pyramidal neurons.  Units with intermediate values (0.35 - 0.45 ms, 39/133) were excluded from our analyses.  
+
+73 neurons were antidromically activated by photostimulating the PT neuron axons.  134 neurons were antidromically activated by photostimulating the IT neuron axons.  These neurons were further tested for collisions in which we looked for absence of antidromic spikes when they were preceded by spontaneous spikes [4].  Neurons that passed the collision test were classified as PT neurons or IT neurons.  Neurons that failed the test were classified as PT-coupled neurons or IT-coupled neurons because they were presumably synaptically-connected to ChR+ PT neurons and IT neurons.  Finally, a few cells could not be tested due to an absence of spontaneous activity and these neurons were excluded from further analyses.  
+
+----------
+References
+1. Guo ZV, Li N, Huber D, Ophir E, Gutnisky  DA, et al. (2014) Flow of cortical activity underlying a tactile decision in mice. Neuron 81: 179-194.
+2. O'Connor DH, Clack NG, Huber D, Komiyama T, Myers EW, et al. (2010) Vibrissa-based object localization in head-fixed mice. J Neurosci 30: 1947-1967.
+3. O'Connor DH, Hires SA, Guo ZV, Li N, Yu J, et al. (2013) Neural coding during active somatosensation revealed using illusory touch. Nature neuroscience 16: 958-965.
+4. Swadlow HA, Waxman SG, Rosene DL (1978) Latency variability and the identification of antidromically activated neurons in mammalian brain. Exp Brain Res 32: 439-443.

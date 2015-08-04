@@ -1,0 +1,26 @@
+{
+"link_type": {
+    "description": "Type of links when linking one dataset to another",
+    "values": { 
+        "hard": "hdf5 hard links",
+        "string": "make string dataset containing path to link"},
+    "default": "hard" },
+"include_schema_id": {
+    "description": "Include schema id as attributed in generated file",
+    "values": {
+        "True": "yes, include id",
+        "False": "no, do not includ id"},
+    "default": "True" },
+"schema_id_attr": {
+    "description": "Id to use attributes for schema id",
+    "default": "h5g8id" },
+"flag_custom_nodes": {
+    "description": "Include schema_id: 'custom' in attributes for custom nodes",
+    "values": {
+        "True": "yes, include id",
+        "False": "no, do not includ id"},
+    "default": "True" },
+"default_compress_size": {
+    "description": "Compress datasets that have total size larger than this value, or 0 if should not do any compression based on size",
+    "default": 512 }  
+}

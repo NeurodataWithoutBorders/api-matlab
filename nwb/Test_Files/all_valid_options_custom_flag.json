@@ -1,0 +1,7 @@
+{
+"link_type": "hard",
+"include_schema_id": "False",
+"schema_id_attr": "h5g8id", 
+"flag_custom_nodes": "True",
+"default_compress_size": 512   
+}
