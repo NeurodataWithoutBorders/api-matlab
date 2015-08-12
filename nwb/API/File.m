@@ -184,7 +184,7 @@ classdef File < handle
         % open output file and add initial structure
             % open file
             try 
-                fp = H5F.create(self.file_name);
+                fp = H5F.create(self.file_name,'H5F_ACC_TRUNC','H5P_DEFAULT','H5P_DEFAULT');
             catch
                 disp(fprintf('Unable to open output file "%s"',  self.file_name));
                 error('create_output_file:unable_to_open_file','Cannot open output file');
