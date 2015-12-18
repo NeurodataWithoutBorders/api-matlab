@@ -4,7 +4,7 @@
             "extracellular_ephys/": {
                 "<electrode_group_X>/": {
                     "device": {
-                        "references": "/general/devices/device_info",
+                        "references": "/general/devices/devices/<device_X>/",
                         "description": "Name of device(s) in /general/devices",
                         "data_type": "text"
                     },
@@ -30,7 +30,7 @@
                     "data_type": "text"
                 },
                 "electrode_group": {
-                    "references": "electrode_group_id",
+                    "references": "<electrode_group_X>/",
                     "description": "Identification string for probe, shank or tetrode",
                     "data_type": "text",
                     "dimensions": [
@@ -67,57 +67,9 @@
                 "description": "Experimetnal protocol, if applicable (e.g., IACUC)",
                 "data_type": "text"
             },
-            "<WidefieldSeries>/": {
-                "exposure_time": {
-                    "unit": "Second",
-                    "description": "Exposure Time",
-                    "data_type": "float"
-                },
-                "merge": [
-                    "<OpticalSeries>/"
-                ],
-                "indicator": {
-                    "description": "Indicator used",
-                    "data_type": "text"
-                },
-                "xyt": {
-                    "type": "structure",
-                    "components": [
-                        {
-                            "alias": "x",
-                            "unit": "meter"
-                        },
-                        {
-                            "alias": "y",
-                            "unit": "meter"
-                        },
-                        {
-                            "alias": "t",
-                            "unit": "?"
-                        }
-                    ]
-                },
-                "description": "Imagestack recorded from wide-field imaging",
-                "counts_per_bit": {
-                    "description": "Counts per bit",
-                    "data_type": "float"
-                },
-                "illumination_power": {
-                    "unit": "Watts",
-                    "data_type": "float"
-                },
-                "attributes": {
-                    "ancestry": {
-                        "value": "TimeSeries,ImageSeries,OpticalSeries,WidefieldSeries",
-                        "data_type": "text"
-                    }
-                },
-                "pixel_binning": {
-                    "dimensions": [
-                        "xyt"
-                    ],
-                    "data_type": "int"
-                }
+            "slices": {
+                "description": "Description of slices, including information about preparation thickness, orientation, temperature and bath solution",
+                "data_type": "text"
             },
             "<TimeSeries>/": {
                 "merge": [
@@ -138,6 +90,9 @@
                 }
             },
             "LFP/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<ElectricalSeries>/": {
                         "data": {
@@ -170,6 +125,24 @@
                     }
                 }
             },
+            "<image_X>": {
+                "attributes": {
+                    "neurodata_type": {
+                        "value": "image",
+                        "data_type": "text"
+                    },
+                    "description": {
+                        "description": "Descriptive text describing the image",
+                        "data_type": "text"
+                    },
+                    "format": {
+                        "description": "Format of the image (eg, 'png', 'avi')",
+                        "data_type": "text"
+                    }
+                },
+                "description": "Documentation image (or movie).  Dimensions left unspecified",
+                "data_type": "any"
+            },
             "<ImageMaskSeries>/": {
                 "merge": [
                     "<imageSeries>/"
@@ -198,11 +171,6 @@
                         "value": "Module",
                         "data_type": "text"
                     }
-                },
-                "source": {
-                    "references": "/",
-                    "description": "Path to the origin of the data represented in this module",
-                    "data_type": "text"
                 }
             },
             "neurodata_version": {
@@ -210,6 +178,9 @@
                 "data_type": "text"
             },
             "EventWaveform/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<SpikeEventSeries>/*": {}
                 },
@@ -237,7 +208,7 @@
                     "data_type": "float"
                 },
                 "control?": {
-                    "references": "control_description.idx",
+                    "references": "control_description.num_control_values",
                     "description": "Numerical labels that apply to each element in data[]. Optional field. If present, the control array should have the same number of elements as data[]",
                     "data_type": "int",
                     "dimensions": [
@@ -245,8 +216,11 @@
                     ]
                 },
                 "control_description?": {
-                    "description": "Description of each control value.  Array length should be as long as the highest number in control minus one, generating an zero-based indexed array for control values",
-                    "data_type": "text"
+                    "dimensions": [
+                        "num_control_values"
+                    ],
+                    "data_type": "text",
+                    "description": "Description of each control value.  Array length should be as long as the highest number in control minus one, generating an zero-based indexed array for control values"
                 },
                 "description": "Times that are synced to data",
                 "timestamps": {
@@ -326,6 +300,9 @@
                 }
             },
             "BehavioralTimeSeries/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<TimeSeries>/*": {
                         "data": {
@@ -342,27 +319,6 @@
                 }
             },
             "optophysiology/": {
-                "optogenetics/": {
-                    "<site_X>/*": {
-                        "device": {
-                            "references": "/general/devices/",
-                            "description": "Name of device in /general/devices",
-                            "data_type": "text"
-                        },
-                        "excitation_lambda": {
-                            "description": "Excitation wavelength",
-                            "data_type": "text"
-                        },
-                        "location": {
-                            "description": "Location of stimulation site",
-                            "data_type": "text"
-                        },
-                        "description": {
-                            "data_type": "text"
-                        },
-                        "_description": "One of possibly many folders describing an describing an optogenetic stimuluation site."
-                    }
-                },
                 "<imaging_plane_X>/*": {
                     "reference_frame": {
                         "description": "Describes position and reference frame of manifold based on position of first element in manifold.",
@@ -379,12 +335,12 @@
                                 "data_type": "text"
                             }
                         },
-                        "description": "Physical position of each pixel. Array structure: [height][width][z]",
+                        "description": "Physical position of each pixel.",
                         "data_type": "float",
                         "dimensions": [
                             "height",
-                            "width",
-                            "depth"
+                            "weight",
+                            "xyz"
                         ]
                     },
                     "description": "Folder one of possibly many folders describing an imaging plane. Name is arbitrary but should be meaningful. It is referenced by TwoPhotonSeries and also ImageSegmentation and DfOverF interfaces.",
@@ -392,7 +348,7 @@
                         "data_type": "text"
                     },
                     "device": {
-                        "references": "/general/devices/",
+                        "references": "/general/devices/<device_X>/",
                         "description": "Name of device in /general/devices",
                         "data_type": "text"
                     },
@@ -405,6 +361,23 @@
                             "description": "Emission lambda for channel",
                             "data_type": "text"
                         }
+                    },
+                    "xyz": {
+                        "type": "struct",
+                        "components": [
+                            {
+                                "alias": "x",
+                                "unit": "meter"
+                            },
+                            {
+                                "alias": "y",
+                                "unit": "meter"
+                            },
+                            {
+                                "alias": "z",
+                                "unit": "meter"
+                            }
+                        ]
                     },
                     "excitation_lambda": {
                         "description": "Excitation wavelength",
@@ -422,25 +395,24 @@
             },
             "UnitTimes/": {
                 "unit_list": {
-                    "references": "<unit_N>:1-to-1",
+                    "references": "<unit_N>/",
                     "description": "List of units present",
                     "data_type": "text",
                     "dimensions": [
                         "num_units"
                     ]
                 },
-                "source": {
-                    "description": "Name, path or description of where unit times originatd",
-                    "data_type": "text"
-                },
+                "merge": [
+                    "<interface>/"
+                ],
                 "description": "Event times of observed units (e.g. cell, synapse, etc.)",
                 "<unit_N>/*": {
-                    "source": {
-                        "description": "Name, path or description of where unit times originatd",
-                        "data_type": "text"
-                    },
                     "unit_description": {
                         "description": "Description of the unit (e.g. cell type)",
+                        "data_type": "text"
+                    },
+                    "source?": {
+                        "description": "Name, path or description of where unit times originatd",
                         "data_type": "text"
                     },
                     "times": {
@@ -508,6 +480,9 @@
                 "data_type": "text"
             },
             "Position/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<SpatialSeries>/*": {}
                 },
@@ -567,19 +542,19 @@
                 "description": "Description of hardware devices used during experiment."
             },
             "FeatureExtraction/": {
+                "description": {
+                    "description": "Description of each feature",
+                    "data_type": "text",
+                    "dimensions": [
+                        "featureIndex"
+                    ]
+                },
                 "electrode_idx": {
                     "references": "/general/extracellular_ephys/electrode_map.electrode_number",
                     "description": "Indicies to electrodes in general/extracellular_ephys/electrode_map",
                     "data_type": "int",
                     "dimensions": [
                         "channelIndex"
-                    ]
-                },
-                "description": {
-                    "description": "Description of each feature",
-                    "data_type": "text",
-                    "dimensions": [
-                        "featureIndex"
                     ]
                 },
                 "times": {
@@ -591,6 +566,9 @@
                         "eventIndex"
                     ]
                 },
+                "merge": [
+                    "<interface>/"
+                ],
                 "parent_attributes": {
                     "interfaces": {
                         "value": "+FeatureExtraction",
@@ -608,6 +586,9 @@
                 }
             },
             "FilteredEphys/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<ElectricalSeries>/*": {}
                 },
@@ -619,6 +600,9 @@
                 }
             },
             "PupilTracking/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<TimeSeries>/*": {
                         "data": {
@@ -669,10 +653,9 @@
                 }
             },
             "EventDetection/": {
-                "source": {
-                    "description": "Name, path or description of where unit times originatd",
-                    "data_type": "text"
-                },
+                "merge": [
+                    "<interface>/"
+                ],
                 "description": "Detected spike events from voltage trace(s).",
                 "source_electricalseries_path": {
                     "references": "/",
@@ -779,6 +762,9 @@
                 }
             },
             "BehavioralEvents/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<TimeSeries>/*": {
                         "data": {
@@ -795,6 +781,9 @@
                 }
             },
             "EyeTracking/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<SpatialSeries>/*": {}
                 },
@@ -814,7 +803,7 @@
                     "<timestamps>/"
                 ],
                 "electrode_name": {
-                    "references": "/general/intracellular_ephys/<intracellular_electrode>",
+                    "references": "/general/intracellular_ephys/<electrode_X>/",
                     "description": "Name of electrode entry in /general/intracellular_ephys",
                     "data_type": "text"
                 },
@@ -859,23 +848,9 @@
                 "description": "Institution(s) where experiment was performed",
                 "data_type": "text"
             },
-            "<image>": {
-                "attributes": {
-                    "description": {
-                        "description": "Descriptive text describing the image",
-                        "data_type": "text"
-                    },
-                    "format": {
-                        "description": "Format of the image (eg, 'png', 'avi')",
-                        "data_type": "text"
-                    }
-                },
-                "description": "Documentation image (or movie).  Dimensions left unspecified",
-                "data_type": "any"
-            },
             "<OptogeneticSeries>/": {
                 "site": {
-                    "references": "/general/optogenetics/",
+                    "references": "/general/optogenetics/<site_X>/",
                     "description": "Name of site description in general/optogentics",
                     "data_type": "text"
                 },
@@ -955,6 +930,9 @@
                 "data_type": "text"
             },
             "CompassDirection/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<SpatialSeries>/*": {}
                 },
@@ -984,7 +962,7 @@
                     }
                 },
                 "data": {
-                    "references": "indexed_timeseries/data.idx",
+                    "references": "indexed_timeseries/data.timeIndex",
                     "dimensions": [
                         "timeIndex"
                     ],
@@ -996,6 +974,9 @@
                 "data_type": "text"
             },
             "BehavioralEpochs/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<IntervalSeries>/*": {
                         "data": {
@@ -1014,6 +995,15 @@
             "experimenter": {
                 "description": "Name of person who performed the experiment",
                 "data_type": "text"
+            },
+            "<interface>/": {
+                "attributes": {
+                    "source": {
+                        "references": "/",
+                        "description": "Path to the origin of the data represented in this interface",
+                        "data_type": "text"
+                    }
+                }
             },
             "<CurrentClampStimulusSeries>/": {
                 "merge": [
@@ -1072,7 +1062,7 @@
                     }
                 },
                 "imaging_plane": {
-                    "references": "/general/optophysiology/",
+                    "references": "/general/optophysiology/<imaging_plane_X>",
                     "description": "Name of imaging plane description in /general/optophysiology",
                     "data_type": "text"
                 }
@@ -1081,11 +1071,10 @@
                 "description": "Date and time experiment was started was created, UTC (ISO 8601). This serves as the reference time for data in the file. All timestamps in a neurodata file are stored as seconds after this reference time",
                 "data_type": "text"
             },
-            "slices": {
-                "description": "Description of slices, including information about preparation thickness, orientation, temperature and bath solution",
-                "data_type": "text"
-            },
             "DfOverF/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<RoiResponseSeries>/*": {}
                 },
@@ -1204,6 +1193,9 @@
                 }
             },
             "ImageSegmentation/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "parent_attributes": {
                     "interfaces": {
                         "value": "+ImageSegmentation",
@@ -1236,7 +1228,7 @@
                             "attributes": {
                                 "weight": {
                                     "description": "Weight of each pixel",
-                                    "data_type": "int_array"
+                                    "data_type": "int"
                                 }
                             },
                             "description": "List of pixels (x,y) that compose mask",
@@ -1298,6 +1290,9 @@
                 }
             },
             "MotionCorrection/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "<image stack name>/": {
                     "corrected/": {
                         "include": {
@@ -1361,17 +1356,24 @@
                 }
             },
             "optogenetics/": {
-                "<site_N>/": {
+                "<site_X>/*": {
                     "device": {
-                        "description": "",
+                        "references": "/general/devices/<device_X>/",
+                        "description": "Name of device in /general/devices",
+                        "data_type": "text"
+                    },
+                    "excitation_lambda": {
+                        "description": "Excitation wavelength",
+                        "data_type": "text"
+                    },
+                    "location": {
+                        "description": "Location of stimulation site",
                         "data_type": "text"
                     },
                     "description": {
                         "data_type": "text"
                     },
-                    "location": {
-                        "data_type": "text"
-                    }
+                    "_description": "One of possibly many folders describing an describing an optogenetic stimuluation site."
                 }
             },
             "<OpticalSeries>/": {
@@ -1475,6 +1477,9 @@
                 "data_type": "text"
             },
             "Fluorescence/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "include": {
                     "<ElectricalSeries>/*": {}
                 },
@@ -1486,6 +1491,9 @@
                 }
             },
             "ClusterWaveforms/": {
+                "merge": [
+                    "<interface>/"
+                ],
                 "waveform_sd": {
                     "description": "Stdev of waveforms for each cluster",
                     "data_type": "float",
@@ -1502,6 +1510,10 @@
                 "clustering_interface/": {
                     "description": "HDF5 link to Clustering interface that was the source of the clustered data"
                 },
+                "clustering_interface_path": {
+                    "description": "Path to linked clustering interface",
+                    "data_type": "text"
+                },
                 "waveform_mean": {
                     "description": "The mean waveform for each cluster",
                     "data_type": "float",
@@ -1515,10 +1527,6 @@
                         "value": "+ClusterWaveforms",
                         "data_type": "text"
                     }
-                },
-                "clustering_interface_path": {
-                    "description": "Path to linked clustering interface",
-                    "data_type": "text"
                 }
             },
             "Clustering/": {
@@ -1535,6 +1543,9 @@
                         "eventIndex"
                     ]
                 },
+                "merge": [
+                    "<interface>/"
+                ],
                 "num": {
                     "description": "Cluster number of each event",
                     "data_type": "int",
@@ -1607,11 +1618,10 @@
                 "<CurrentClampSeries>/*",
                 "<ImageSeries>/*",
                 "<TwoPhotonSeries>/*",
-                "<OpticalSeries>/*",
-                "<WidefieldSeries>/*"
+                "<OpticalSeries>/*"
             ],
             "/acquisition/images": [
-                "<image>*"
+                "<image_X>*"
             ],
             "/acquisition/timeseries": [
                 "<TimeSeries>/*",
@@ -1631,8 +1641,7 @@
                 "<CurrentClampSeries>/*",
                 "<ImageSeries>/*",
                 "<TwoPhotonSeries>/*",
-                "<OpticalSeries>/*",
-                "<WidefieldSeries>/*"
+                "<OpticalSeries>/*"
             ],
             "/general": [
                 "session_id!",
@@ -1674,8 +1683,7 @@
                 "<CurrentClampSeries>/*",
                 "<ImageSeries>/*",
                 "<TwoPhotonSeries>/*",
-                "<OpticalSeries>/*",
-                "<WidefieldSeries>/*"
+                "<OpticalSeries>/*"
             ],
             "/": [
                 "neurodata_version!",

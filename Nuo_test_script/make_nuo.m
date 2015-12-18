@@ -228,7 +228,7 @@ fiber_text = sprintf('Implant Date: %s\nTip Coordinates: %s', ...
   impl_date, mat2str(tip_coord));
 % g = f.make_group('optophysiology');
 g = f.make_group('optogenetics');
-g = g.make_group('<site_N>', 'site_1');
+g = g.make_group('<site_X>', 'site_1');
 g.set_dataset('description', fiber_text);
 g.set_dataset('location', tip_loc);
 
@@ -310,12 +310,11 @@ fprintf('Reading Event Series Data\n');
 % create module units
 mod_name = 'Units';
 m = f.make_group('<module>', mod_name);
-m.set_attr('source', 'Data as reported in Nuo''s data file');
 % make UnitTimes and EventWaveform interfaces
 spk_waves_iface = m.make_group('EventWaveform');
-% spk_waves_iface.set_dataset('source', 'Data as reported in Nuo''s file');
+spk_waves_iface.set_attr('source', 'Data as reported in Nuo''s file');
 spk_times_iface = m.make_group('UnitTimes');
-spk_times_iface.set_dataset('source', 'EventWaveform in this module');
+spk_times_iface.set_attr('source', 'EventWaveform in this module');
 unit_ids = {};
 % top level folder
 unit_num = length(ds.eventSeriesHash.value);
