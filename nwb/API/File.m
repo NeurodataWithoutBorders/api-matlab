@@ -566,7 +566,7 @@ classdef File < handle
                     % dbstack
                     error('get_custom_node_info:empty_path', 'Path must be specified in a custom location');
                 end
-                sdef.custom = 'true';
+                sdef.custom = true;
             else
                 % did not find id in structures.  Assume creating custom node in custom location
                 [ns, id] = self.parse_qid(Utils.convert_utf_to_uc(qid), self.default_ns);
