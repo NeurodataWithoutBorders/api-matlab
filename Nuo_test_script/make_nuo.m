@@ -310,6 +310,9 @@ fprintf('Reading Event Series Data\n');
 % create module units
 mod_name = 'Units';
 m = f.make_group('<module>', mod_name);
+% below set_attr call causes matlab to crash.  source is not
+% an attribute of module.
+% m.set_attr('source', 'Data as reported in Nuo''s data file');
 % make UnitTimes and EventWaveform interfaces
 spk_waves_iface = m.make_group('EventWaveform');
 spk_waves_iface.set_attr('source', 'Data as reported in Nuo''s file');
